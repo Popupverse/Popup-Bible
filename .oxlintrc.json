@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true, // almost equivalent of `tsc --noEmit`
+    "reportUnusedDisableDirectives": "warn"
+  },
+  "rules": {
+    "turbo/no-undeclared-env-vars": "warn" // also not enabled explicitly (see: below)
+  },
+  "env": {
+    "builtin": true
+  },
+  "jsPlugins": ["eslint-plugin-turbo"]
+}

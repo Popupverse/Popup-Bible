@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "tasks": {
+    "//#lint": {},
+    "//#lint:fix": {
+      "cache": false
+    },
+    "//#fmt": {},
+    "//#fmt:fix": {
+      "dependsOn": ["//#lint:fix"],
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.stories.{tsx,jsx,mdx}"],
+      "outputs": ["dist/**", "storybook-static/**"]
+    },
+    "transit": { "dependsOn": ["^transit"] },
+    "check-types": { "dependsOn": ["transit"] },
+    "dev": {
+      "persistent": true,
+      "cache": false
+    }
+  }
+}

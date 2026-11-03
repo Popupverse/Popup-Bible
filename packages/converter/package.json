@@ -1,0 +1,14 @@
+{
+  "name": "@popup-bible/flat-converter",
+  "version": "0.0.0",
+  "description": "Converts usj and usx to a more usable flat format",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@workspace/tsconfig": "workspace:*"
+  }
+}

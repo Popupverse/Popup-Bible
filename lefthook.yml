@@ -1,0 +1,9 @@
+pre-push:
+  commands:
+    types:
+      run: turbo check-types
+
+pre-commit:
+  commands:
+    lint:
+      run: pnpm lint-staged
