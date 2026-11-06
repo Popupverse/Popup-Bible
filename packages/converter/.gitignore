@@ -1,2 +1,2 @@
-assets
-!assets/**/*.zip
+/usj/assets/*
+!/usj/assets/*.zip
