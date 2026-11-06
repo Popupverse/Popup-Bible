@@ -10,6 +10,7 @@
     "reportUnusedDisableDirectives": "warn"
   },
   "rules": {
+    "no-unused-vars": "warn",
     "turbo/no-undeclared-env-vars": "warn" // also not enabled explicitly (see: below)
   },
   "env": {
