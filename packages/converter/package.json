@@ -5,10 +5,24 @@
   "license": "AGPL-3.0-only",
   "type": "module",
   "scripts": {
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "dev:clean-bsb": "rimraf ./usj/assets/bsb/",
+    "dev:unzip-bsb": "pnpm cross-unzip ./usj/assets/bsb.zip ./usj/assets/bsb/",
+    "dev:reset-bsb": "pnpm dev:clean-bsb && pnpm dev:unzip-bsb",
+    "dev:convert-bsb": "pnpm dev:reset-bsb && node ./usj/index.ts ./usj/assets/bsb/bsb_usj/ ./usj/assets/bsb/formatted/"
+  },
+  "imports": {
+    "#formatter": "./formatting/formatter.ts"
+  },
+  "dependencies": {
+    "es-toolkit": "^1.53.1"
   },
   "devDependencies": {
+    "@crustjs/core": "^0.5.6",
+    "@crustjs/extensions": "^0.5.6",
     "@types/node": "^26.6.6",
-    "@workspace/tsconfig": "workspace:*"
+    "@workspace/tsconfig": "workspace:*",
+    "cross-zip-cli": "^1.0.0",
+    "rimraf": "^6.1.3"
   }
 }
