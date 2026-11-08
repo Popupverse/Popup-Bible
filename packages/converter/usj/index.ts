@@ -34,7 +34,7 @@ const app = new Crust("popup-bible-flat-converter", { version: pkg.version })
     default: ".",
   })
   .flags({ name: "verbose", type: "boolean", default: false })
-  .action(async ({ args, flags }) => {
+  .action(async ({ args }) => {
     const inputPath = args.input === "." ? process.cwd() : args.input;
     const outputDir = args.output === "." ? process.cwd() : args.output;
 
