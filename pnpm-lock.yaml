@@ -193,6 +193,9 @@ importers:
 
   packages/converter:
     dependencies:
+      bible-passage-reference-parser:
+        specifier: ^4.0.0
+        version: 4.0.0
       es-toolkit:
         specifier: ^1.53.1
         version: 1.53.1
@@ -781,6 +784,9 @@ packages:
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
+
+  bible-passage-reference-parser@4.0.0:
+    resolution: {integrity: sha512-glCq4RVcvbeNMI2h+XppurZ2zyaelsI23dX1Uv+xXQ2KRjkWRpITyNHD2+qvLG8HSSWYw/71MOEa4DgsY+i1oA==}
 
   brace-expansion@1.1.21:
     resolution: {integrity: sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==}
@@ -1541,6 +1547,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   balanced-match@4.0.4: {}
+
+  bible-passage-reference-parser@4.0.0: {}
 
   brace-expansion@1.1.21:
     dependencies:

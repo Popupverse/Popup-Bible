@@ -6,8 +6,17 @@ import path from "node:path";
 import { Crust } from "@crustjs/core";
 import { help, version } from "@crustjs/extensions";
 
+import { bcv_parser } from "bible-passage-reference-parser";
+import * as bcv_en from "bible-passage-reference-parser/esm/lang/en.js";
+
 import pkg from "../package.json" with { type: "json" };
 import { formatter } from "./formatter.ts";
+
+const parser = new bcv_parser(bcv_en);
+
+parser.set_options({
+  book_alone_strategy: "full",
+});
 
 const app = new Crust("popup-bible-flat-converter", { version: pkg.version })
   .extend(version(), help())
@@ -39,7 +48,9 @@ const app = new Crust("popup-bible-flat-converter", { version: pkg.version })
 
       const formatted = f.format();
 
-      const outputPath = path.join(outputDir, formatted.name + ".js");
+      const osis = parser.parse(formatted.name).osis();
+
+      const outputPath = path.join(outputDir, osis + ".js");
 
       const output = `
 /**
@@ -59,8 +70,6 @@ export default content;
       for (const file of files) {
         // using `resolve` to get absolute file path that will set in `book.path``
         await convert(path.resolve(file.parentPath, file.name));
-
-        break; // TODO: Remove
       }
     } else {
       await convert(inputPath);

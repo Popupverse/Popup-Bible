@@ -14,6 +14,8 @@ await describe("Content completeness", async (ctx) => {
   });
 
   for (const file of files) {
+    // if (!file.name.startsWith("Acts")) continue;
+
     const { default: book } = (await import(path.join(file.parentPath, file.name))) as {
       default: Book;
     };
@@ -25,7 +27,7 @@ await describe("Content completeness", async (ctx) => {
 
     for (const indexedContent of index) {
       if (indexedContent.key === "title") {
-        await it("preserves titles", () => {
+        await it(`${file.name} preserves titles`, () => {
           const content = Formatter.extractContent(book, "title");
 
           if ("title" in content && "title" in indexedContent) {
@@ -43,7 +45,7 @@ await describe("Content completeness", async (ctx) => {
       else if (indexedContent.key.type === "section") {
         //
 
-        await it(`preserves (chapter ${indexedContent.key.chapter}: section ${indexedContent.key.section})`, () => {
+        await it(`${file.name} preserves (chapter ${indexedContent.key.chapter}: section ${indexedContent.key.section})`, () => {
           const content = Formatter.extractContent(book, indexedContent.key);
 
           if ("section" in content && "section" in indexedContent) {
@@ -55,7 +57,7 @@ await describe("Content completeness", async (ctx) => {
       } else if (indexedContent.key.type === "verse") {
         //
 
-        await it(`preserves (chapter ${indexedContent.key.chapter}: section ${indexedContent.key.section} : verse ${indexedContent.key.verse})`, () => {
+        await it(`${file.name} preserves (chapter ${indexedContent.key.chapter}: section ${indexedContent.key.section} : verse ${indexedContent.key.verse})`, () => {
           const content = Formatter.extractContent(book, indexedContent.key);
 
           if ("verse" in content && "verse" in indexedContent) {

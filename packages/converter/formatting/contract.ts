@@ -17,7 +17,7 @@ export interface RefContent {
 }
 
 export interface MarkedContent {
-  type: string;
+  type: "para" | "char";
   marker: string;
   content?: (string | MarkedContent | RefContent)[]; // `b` don't have `content`'s
 }
@@ -38,7 +38,8 @@ type Note = [keyTextIndexInVerse: number, note: string];
 
 type ChapterKey = { type: "chapter"; chapter: number };
 type SectionKey = { type: "section"; chapter: number; section: number };
-type VerseKey = { type: "verse"; chapter: number; section: number; verse: number };
+
+export type VerseKey = { type: "verse"; chapter: number; section: number; verse: number };
 
 export type IndexKey = "title" | "intro" | ChapterKey | SectionKey | VerseKey;
 
@@ -58,6 +59,10 @@ export type IndexVerse = { key: IndexKey; verse: string[]; note?: Note[] };
 
 export type IndexedContent = IndexTitle | IndexIntro | IndexSection | IndexVerse;
 
+/**
+ * `IndexSection` content is flattened,
+ * which means all it's notes will be concatenated for `d` marks that might contain notes
+ */
 export function* contentIndex(
   contents: string | RootContent | NumberedContent | MarkedContent | RefContent,
   supportedMarkers: ReturnType<typeof getSupportedMarkers>,
@@ -127,6 +132,8 @@ export function* contentIndex(
 
   else {
     if ("marker" in contents) {
+      contents.marker = contents.marker === "ms" ? "ms1" : contents.marker;
+
       const markerType = getMarkerType(contents.marker);
 
       if (supportedMarkers.BOOK_TITLES_AND_SECTIONS_MARKERS?.has(markerType)) {
@@ -195,7 +202,7 @@ export function* contentIndex(
       //
 
       else if (!supportedMarkers.BOOK_IDENTIFICATION_MARKERS?.has(markerType)) {
-        throw Error(`Unexpected marker found: ${markerType}`);
+        throw Error(`Unexpected marker found: ${markerType} at ${JSON.stringify(iterator.key)}`);
       }
     }
     //

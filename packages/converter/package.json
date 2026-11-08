@@ -4,17 +4,19 @@
   "description": "Converts usj and usx to a more usable flat format",
   "license": "AGPL-3.0-only",
   "type": "module",
+  "imports": {
+    "#formatter": "./formatting/formatter.ts"
+  },
   "scripts": {
     "check-types": "tsc --noEmit",
     "dev:clean-bsb": "rimraf ./usj/assets/bsb/",
     "dev:unzip-bsb": "pnpm cross-unzip ./usj/assets/bsb.zip ./usj/assets/bsb/",
     "dev:reset-bsb": "pnpm dev:clean-bsb && pnpm dev:unzip-bsb",
-    "dev:convert-bsb": "pnpm dev:reset-bsb && node ./usj/index.ts ./usj/assets/bsb/bsb_usj/ ./usj/assets/bsb/formatted/"
-  },
-  "imports": {
-    "#formatter": "./formatting/formatter.ts"
+    "dev:convert-bsb": "pnpm dev:reset-bsb && node ./usj/index.ts ./usj/assets/bsb/bsb_usj/ ./usj/assets/bsb/formatted/",
+    "test": "pnpm dev:convert-bsb && node --test"
   },
   "dependencies": {
+    "bible-passage-reference-parser": "^4.0.0",
     "es-toolkit": "^1.53.1"
   },
   "devDependencies": {
