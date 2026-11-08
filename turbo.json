@@ -15,6 +15,7 @@
       "inputs": ["$TURBO_DEFAULT$", "!**/*.stories.{tsx,jsx,mdx}"],
       "outputs": ["dist/**", "storybook-static/**"]
     },
+    "test": { "dependsOn": ["^build", "build"] },
     "transit": { "dependsOn": ["^transit"] },
     "check-types": { "dependsOn": ["transit"] },
     "dev": {
