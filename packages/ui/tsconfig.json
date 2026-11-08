@@ -11,7 +11,10 @@
     "types": [],
     "declaration": true,
     "emitDeclarationOnly": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@popup-bible/ui/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }
