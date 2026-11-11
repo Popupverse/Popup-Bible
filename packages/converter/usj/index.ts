@@ -5,7 +5,6 @@ import path from "node:path";
 
 import { Crust } from "@crustjs/core";
 import { help, version } from "@crustjs/extensions";
-
 import { bcv_parser } from "bible-passage-reference-parser";
 import * as bcv_en from "bible-passage-reference-parser/esm/lang/en.js";
 
@@ -34,7 +33,7 @@ const app = new Crust("popup-bible-flat-converter", { version: pkg.version })
     default: ".",
   })
   .flags({ name: "verbose", type: "boolean", default: false })
-  .action(async ({ args, flags }) => {
+  .action(async ({ args }) => {
     const inputPath = args.input === "." ? process.cwd() : args.input;
     const outputDir = args.output === "." ? process.cwd() : args.output;
 

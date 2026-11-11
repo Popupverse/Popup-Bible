@@ -7,6 +7,11 @@
   "imports": {
     "#formatter": "./formatting/formatter.ts"
   },
+  "exports": {
+    ".": {
+      "types": "./types.ts"
+    }
+  },
   "scripts": {
     "check-types": "tsc --noEmit",
     "dev:clean-bsb": "rimraf ./usj/assets/bsb/",
