@@ -34,7 +34,7 @@ export default function HomeScreen(): JSX.Element {
   const themeColorForeground = useThemeColor("foreground");
 
   return (
-    <View className="flex-1 bg-background justify-center px-6">
+    <View className="flex-1 justify-center bg-background px-6">
       <Card className="items-center gap-8">
         <HeroUILogo tintColor={themeColorForeground} />
         <Typography.Paragraph className="text-center">
