@@ -1,0 +1,25 @@
+{
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "jsx": "react-jsx",
+    "lib": ["es2023", "DOM"],
+    "moduleDetection": "force",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "types": [],
+    "declaration": true,
+    "allowJs": true,
+    "emitDeclarationOnly": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "exactOptionalPropertyTypes": false,
+    "paths": {
+      "@popup-bible/ui/*": ["./src/*"],
+      "@/reader/*": ["./src/components/reader/*"],
+      "@/route/*": ["./src/components/app/router/routes/*"]
+    }
+  },
+  "include": ["src", "playground", ".storybook/**/*.ts", ".storybook/**/*.tsx", "global.d.ts"]
+}

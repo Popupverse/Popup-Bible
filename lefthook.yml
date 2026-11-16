@@ -6,4 +6,4 @@ pre-push:
 pre-commit:
   commands:
     lint:
-      run: pnpm lint-staged
+      run: pnpm lint-staged && pnpm --filter @popup-bible/ui exec lingui extract

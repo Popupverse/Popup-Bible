@@ -1,20 +1,54 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+
   "plugins": ["typescript", "unicorn", "oxc"],
+
   "categories": {
     "correctness": "error"
   },
+
   "options": {
     "typeAware": true,
     "typeCheck": true, // almost equivalent of `tsc --noEmit`
     "reportUnusedDisableDirectives": "warn"
   },
+
   "rules": {
     "no-unused-vars": "warn",
-    "turbo/no-undeclared-env-vars": "warn" // also not enabled explicitly (see: below)
+
+    // Oxlint doesn't read the plugin's configs, so the recommended rules have to be listed explicitly:
+    "turbo/no-undeclared-env-vars": "warn"
   },
+
   "env": {
     "builtin": true
   },
-  "jsPlugins": ["eslint-plugin-turbo"]
+
+  "jsPlugins": ["eslint-plugin-turbo"],
+
+  "ignorePatterns": ["routeTree.gen.ts"],
+
+  "overrides": [
+    {
+      "files": ["./packages/ui/**/*"],
+
+      "jsPlugins": ["eslint-plugin-lingui"], // extends doesn't merge jsPlugins 🤦‍♂️
+
+      "rules": {
+        // also not enabled explicitly (see: marker `a`)
+        "lingui/t-call-in-function": "error",
+        "lingui/no-single-tag-to-translate": "warn",
+        "lingui/no-single-variables-to-translate": "warn",
+        "lingui/no-trans-inside-trans": "warn",
+        "lingui/no-expression-in-message": "warn",
+        "lingui/require-directive-reset": "warn",
+        "lingui/no-unnamed-tag-placeholders": [
+          "error",
+          {
+            "jsxPlaceholderAttribute": "_lingui_tag"
+          }
+        ]
+      }
+    }
+  ]
 }

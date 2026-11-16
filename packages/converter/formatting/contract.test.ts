@@ -1,12 +1,11 @@
+import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import { describe, it } from "node:test";
 
-import assert from "node:assert/strict";
 import { contentIndex } from "./contract.ts";
-import { getSupportedMarkers } from "./supported-markers.ts";
 import { Formatter, type Book } from "./formatter.ts";
+import { getSupportedMarkers } from "./supported-markers.ts";
 
 await describe("Content completeness", async (ctx) => {
   const files = await fs.readdir(path.resolve(ctx.filePath!, "../../usj/assets/bsb/formatted/"), {
