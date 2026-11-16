@@ -64,12 +64,13 @@ export interface Section {
   paragraphs: Paragraph[];
 }
 
-export type Verse = { verse: number };
+export type Verse = { type: "v"; verse: number };
 
 export type Paragraph =
   | {
       type: "p";
       marker: string; // used for styling
+      next?: string;
       content: (OtherText | Text | Verse | Paragraph)[];
     }
   | { type: "b" };
@@ -109,7 +110,11 @@ export class Formatter {
       paragraph?: Exclude<Paragraph, { type: "b" }>;
     }
 
-    function index(content: string | NumberedContent | MarkedContent | RefContent, ctx: Ctx) {
+    function index(
+      content: string | NumberedContent | MarkedContent | RefContent,
+      ctx: Ctx,
+      next?: MarkedContent,
+    ) {
       //
 
       if (typeof content === "string") {
@@ -179,7 +184,7 @@ export class Formatter {
           //
         } else if (ctx.paragraph) {
           ctx.$.verse = parseInt(content.number);
-          ctx.paragraph.content.push({ verse: ctx.$.verse });
+          ctx.paragraph.content.push({ type: "v", verse: ctx.$.verse });
         }
       }
       //
@@ -243,11 +248,7 @@ export class Formatter {
               ctx.$.section?.title.push(p);
               ctx.paragraph = p;
 
-              content.content?.forEach((content) => {
-                // NOTE: keep beginning spaces for `d`
-
-                index(content, ctx);
-              });
+              nextContent(() => ctx, content.content);
             }
             //
 
@@ -278,7 +279,9 @@ export class Formatter {
         //
 
         const p: Paragraph =
-          markerType === "b" ? { type: "b" } : { type: "p", marker: content.marker, content: [] };
+          markerType === "b"
+            ? { type: "b" }
+            : { type: "p", marker: content.marker, next: next?.marker, content: [] };
 
         if (ctx.paragraph) {
           ctx.paragraph.content.push(p);
@@ -290,14 +293,19 @@ export class Formatter {
           ctx.paragraph = p;
         }
 
-        content.content?.forEach((content, i) => {
-          // NOTE: skip redundant beginning spaces. They cause issues in completeness tests that skips these spaces.
-          if (i === 0 && typeof content === "string" && !content.trim()) {
-            return;
-          }
+        nextContent(
+          () => ctx,
+          content.content,
+          (content, i) => {
+            // NOTE: skip redundant beginning spaces. They cause issues in completeness tests that skips these spaces.
+            //
+            if (i === 0 && typeof content === "string" && !content.trim()) {
+              return false;
+            }
 
-          index(content, ctx);
-        });
+            return true;
+          },
+        );
       }
       //
 
@@ -312,9 +320,7 @@ export class Formatter {
         }
 
         if ("content" in content) {
-          content.content?.forEach((content) => {
-            index(content, ctx);
-          });
+          nextContent(() => ctx, content.content);
 
           // handling text note completion under 'a was tough. So let's handle it here.
           if (create && ctx.$.text) {
@@ -329,9 +335,48 @@ export class Formatter {
 
     const $: GlobalCtx = {};
 
-    for (const content of this.contents.content) {
-      index(content, { $ });
+    type IndexArgs = Parameters<typeof index>;
+
+    function nextContent<C extends IndexArgs[0]>(
+      getCtx: () => Ctx,
+      contents: C[] = [],
+      filter?: (content: C, i: number) => boolean,
+    ) {
+      //
+
+      const { queue } = contents.reduce(
+        (C, content, i) => {
+          if (filter && !filter(content, i)) return C;
+
+          const { queue, lastParaArgs } = C;
+
+          const args: IndexArgs = [content, getCtx()];
+
+          if (typeof content === "object" && content.type === "para") {
+            const markerType = getMarkerType(content.marker);
+
+            if (markerType !== "b") {
+              if (lastParaArgs) {
+                lastParaArgs[2] = content;
+              }
+
+              C.lastParaArgs = args;
+            }
+          }
+
+          queue.push(args);
+
+          return C;
+        },
+        { queue: [] } as { queue: IndexArgs[]; lastParaArgs?: IndexArgs },
+      );
+
+      for (const args of queue) {
+        index(...args);
+      }
     }
+
+    nextContent(() => ({ $ }), this.contents.content);
 
     return this.book;
   }

@@ -2,20 +2,14 @@ import type { ComponentPropsWithRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const useStyles = tv({
-  base: "no-scrollbar overflow-y-auto scroll-smooth p-4",
-  variants: {
-    fullScreen: {
-      true: "container mx-auto h-full max-w-2xl",
-    },
-  },
+  base: "h-full overflow-y-scroll scroll-smooth",
 });
 
 export function BookContainer({
   className,
-  fullScreen,
   ...props
 }: ComponentPropsWithRef<"section"> & VariantProps<typeof useStyles>) {
-  const styles = useStyles({ className, fullScreen });
+  const styles = useStyles({ className });
 
   return <section {...props} className={styles} />;
 }

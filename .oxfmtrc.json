@@ -1,6 +1,13 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["dist", ".turbo", ".pnpm-store", "pnpm-lock.yaml", "node_modules"],
+  "ignorePatterns": [
+    "dist",
+    ".turbo",
+    ".pnpm-store",
+    "pnpm-lock.yaml",
+    "node_modules",
+    "routeTree.gen.ts"
+  ],
   "sortImports": true,
   "sortTailwindcss": {
     "functions": ["clsx", "cn", "cva", "tw", "tv"],
