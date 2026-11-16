@@ -7,6 +7,6 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
-#: src/components/reader/BookText.tsx:42
+#: src/components/reader/BookText.tsx:103
 msgid "Note"
 msgstr "Note"
