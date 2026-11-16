@@ -18,7 +18,12 @@
     "typescript": "^7.0.2"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run lint"
+    "*.{json,yml,yaml}": [
+      "pnpm run fmt:fix"
+    ],
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "pnpm run lint"
+    ]
   },
   "devEngines": {
     "packageManager": {
