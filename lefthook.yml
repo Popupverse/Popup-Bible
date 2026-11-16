@@ -6,4 +6,9 @@ pre-push:
 pre-commit:
   commands:
     lint:
-      run: pnpm lint-staged && pnpm --filter @popup-bible/ui exec lingui extract
+      run: |
+        set -e
+        shopt -s globstar nullglob
+        pnpm lint-staged
+        pnpm --filter @popup-bible/ui exec lingui extract
+        git add ./packages/ui/src/locales/*.po
