@@ -1,9 +1,10 @@
+import { useLayoutEffect, useRef, type ComponentPropsWithRef } from "react";
+
 import { Trans } from "@lingui/react/macro";
 import type { BCVMarkup, Note, OtherText, Text } from "@popup-bible/flat-converter";
 import { Link } from "@tanstack/react-router";
 import { useSearch } from "@tanstack/react-router";
 import { NotebookDotIcon } from "lucide-react";
-import { useLayoutEffect, useRef, type ComponentPropsWithRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import {
@@ -13,6 +14,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "#ui/popover";
+
 import { Route } from "@/route/book.$bookId";
 
 import { useAppContainer } from "../app/AppContainer";

@@ -9,10 +9,12 @@
   },
   "devDependencies": {
     "eslint-plugin-turbo": "^2.11.10",
+    "expo-config-oxlint": "0.2.0",
     "lefthook": "^2.2.2",
     "lint-staged": "^17.6.0",
     "oxfmt": "^0.75.0",
     "oxlint": "^1.90.0",
+    "oxlint-config-universe": "^0.2.0",
     "oxlint-tsgolint": "^7.0.2005",
     "turbo": "^2.11.10",
     "typescript": "^7.0.2"

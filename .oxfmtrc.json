@@ -8,7 +8,28 @@
     "node_modules",
     "routeTree.gen.ts"
   ],
-  "sortImports": true,
+  "sortImports": {
+    "customGroups": [
+      {
+        "groupName": "react-libs",
+        "elementNamePattern": ["react", "react-**"]
+      }
+    ],
+    "partitionByComment": true,
+    "sortSideEffects": true,
+    "groups": [
+      "builtin", // node.js builtin
+      "react-libs",
+      "external",
+      "subpath", // node.js #subpaths
+      "internal", // @/*
+      "parent",
+      "sibling",
+      "index",
+      "style"
+    ],
+    "ignoreCase": false
+  },
   "sortTailwindcss": {
     "functions": ["clsx", "cn", "cva", "tw", "tv"],
     "stylesheet": "./packages/ui/src/global.css"

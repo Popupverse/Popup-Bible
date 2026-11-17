@@ -1,6 +1,7 @@
+import { useEffect, useMemo } from "react";
+
 import { i18n } from "@lingui/core";
 import { I18nProvider, type I18nProviderProps } from "@lingui/react";
-import { useEffect, useMemo } from "react";
 
 import { AppContainerContext } from "./AppContainer";
 import { LocaleContext, useLocale } from "./LocaleContext";

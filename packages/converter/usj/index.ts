@@ -9,6 +9,7 @@ import { bcv_parser } from "bible-passage-reference-parser";
 import * as bcv_en from "bible-passage-reference-parser/esm/lang/en.js";
 
 import pkg from "../package.json" with { type: "json" };
+
 import { formatter } from "./formatter.ts";
 
 const parser = new bcv_parser(bcv_en);

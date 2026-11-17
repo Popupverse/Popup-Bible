@@ -1,0 +1,74 @@
+diff --git a/index.d.ts b/index.d.ts
+index 9595162048f432cd945ae784b0120a8f2c3d0e52..e85b55d3a05b6e6dc3002e901007151cfab251aa 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -8,6 +8,7 @@ export type RuleSeverity = "off" | "warn" | "error";
+ export declare const reactHooksJsPlugin: OxlintJsPlugin;
+ export declare const expoJsPlugin: OxlintJsPlugin;
+ export declare const reactHooksRules: Record<string, RuleSeverity>;
++export declare const disabledNativeReactHooksCompilerRules: Record<string, RuleSeverity>;
+ export declare const expoRules: Record<string, RuleSeverity>;
+ export declare const jsPluginConfig: {
+   jsPlugins: OxlintJsPlugin[];
+diff --git a/index.js b/index.js
+index 4643365c5866f2b7927b889e329a51ec478cdaf0..3c34d3c89e9b203b983d8acfd6750ecc69632611 100644
+--- a/index.js
++++ b/index.js
+@@ -92,6 +92,30 @@ export const jsPluginConfig = {
+   rules: { ...reactHooksRules, ...expoRules },
+ };
+ 
++/**
++* Oxlint ships native ports for most react-hooks/compiler rules. Its
++* correctness category enables many of them by default. Prefer the React
++* team's JS-plugin implementations above and disable every native overlap
++* so each violation is reported exactly once.
++*/
++export const disabledNativeReactHooksCompilerRules = {
++  "react/rules-of-hooks": "off",
++  "react/exhaustive-deps": "off",
++  "react/error-boundaries": "off",
++  "react/globals": "off",
++  "react/immutability": "off",
++  "react/incompatible-library": "off",
++  "react/preserve-manual-memoization": "off",
++  "react/purity": "off",
++  "react/refs": "off",
++  "react/set-state-in-effect": "off",
++  "react/set-state-in-render": "off",
++  "react/static-components": "off",
++  "react/unsupported-syntax": "off",
++  "react/use-memo": "off",
++  "react/void-use-memo": "off",
++}
++
+ /**
+  * The full preset: oxlint-config-universe/native (Expo's own oxlint base
+  * for React Native / Expo apps) merged with the JS-plugin rules above.
+@@ -103,25 +127,7 @@ const config = {
+     ...(native.rules ?? {}),
+     ...reactHooksRules,
+     ...expoRules,
+-    // Oxlint ships native ports for most react-hooks/compiler rules. Its
+-    // correctness category enables many of them by default. Prefer the React
+-    // team's JS-plugin implementations above and disable every native overlap
+-    // so each violation is reported exactly once.
+-    "react/rules-of-hooks": "off",
+-    "react/exhaustive-deps": "off",
+-    "react/error-boundaries": "off",
+-    "react/globals": "off",
+-    "react/immutability": "off",
+-    "react/incompatible-library": "off",
+-    "react/preserve-manual-memoization": "off",
+-    "react/purity": "off",
+-    "react/refs": "off",
+-    "react/set-state-in-effect": "off",
+-    "react/set-state-in-render": "off",
+-    "react/static-components": "off",
+-    "react/unsupported-syntax": "off",
+-    "react/use-memo": "off",
+-    "react/void-use-memo": "off",
++    ...disabledNativeReactHooksCompilerRules,
+   },
+ };
+ 

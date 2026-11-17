@@ -1,9 +1,10 @@
-import { QueryClient } from "@tanstack/react-query";
-import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { useMemo } from "react";
 
-import type { RouterContext } from "./routes/__root.tsx";
+import { QueryClient } from "@tanstack/react-query";
+import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
+
 import { routeTree } from "./routeTree.gen.ts";
+import type { RouterContext } from "./routes/__root.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,6 +1,7 @@
+import type { ComponentPropsWithRef } from "react";
+
 import { useSearch } from "@tanstack/react-router";
 import { cn } from "cn";
-import type { ComponentPropsWithRef } from "react";
 import { tv } from "tailwind-variants";
 
 import { Route } from "@/route/book.$bookId";

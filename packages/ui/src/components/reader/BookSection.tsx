@@ -1,6 +1,7 @@
+import { Fragment, type ComponentPropsWithRef } from "react";
+
 import type { Section } from "@popup-bible/flat-converter";
 import { useSearch } from "@tanstack/react-router";
-import { Fragment, type ComponentPropsWithRef } from "react";
 import { tv } from "tailwind-variants";
 
 import { Route } from "@/route/book.$bookId";

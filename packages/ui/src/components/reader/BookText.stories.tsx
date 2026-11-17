@@ -4,6 +4,7 @@ import book from "@popup-bible/flat-converter/bsb/Acts";
 import preview from "#.storybook/preview";
 
 import { App } from "../app/App.tsx";
+
 import { BookText } from "./BookText.tsx";
 
 const meta = preview.meta({

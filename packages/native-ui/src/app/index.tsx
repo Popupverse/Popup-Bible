@@ -1,7 +1,8 @@
-import { Button, Card, Typography, useThemeColor } from "heroui-native";
 import type { JSX } from "react";
 import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
+
+import { Button, Card, Typography, useThemeColor } from "heroui-native";
 
 function HeroUILogo({ tintColor }: { tintColor: string }): JSX.Element {
   return (

@@ -1,4 +1,5 @@
 import { MARKERS, type Marker } from "../usfm/v3.1.ts";
+
 import type { MarkedContent, RefContent, RootContent } from "./contract.ts";
 
 export type MarkerGroup = keyof typeof MARKERS;

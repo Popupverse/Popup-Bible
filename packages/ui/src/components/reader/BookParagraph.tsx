@@ -1,9 +1,11 @@
+import { Fragment } from "react";
+
 import type { Paragraph } from "@popup-bible/flat-converter";
 import { useSearch } from "@tanstack/react-router";
-import { Fragment } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import { Route } from "../app/router/routes/book.$bookId";
+
 import { BookText } from "./BookText";
 
 const useStyles = tv({
